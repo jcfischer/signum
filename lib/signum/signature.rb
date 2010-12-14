@@ -23,9 +23,7 @@ class Signature
   #
   def self.clean params
     params = params.dup
-    params.delete :controller
     params.delete 'controller'
-    params.delete :action
     params.delete 'action'
     params
   end
@@ -33,8 +31,6 @@ class Signature
   #
   #
   def == other
-    puts "self : #{self.signature.inspect}"
-    puts "other: #{other.signature.inspect}"
     self.signature == other.signature
   end
   
@@ -62,15 +58,13 @@ class Signature
   #
   def self.stringified params
     sorted_params = params.to_a.sort
-    s = sorted_params.map { |key, value| "#{key.to_s}:#{value.to_s}" }.join(",")
-    puts s
-    s
+    sorted_params.map { |key, value| "#{key.to_s}:#{value.to_s}" }.join(",")
   end
   
   # Generate a signature for the given params.
   #
   def self.generate_signature from_string, secret
-    Digest::MD5.hexdigest(from_string + secret)
+    Digest::MD6.hexdigest(from_string + secret)
   end
   
   def to_s
