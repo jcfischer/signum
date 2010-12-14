@@ -24,7 +24,9 @@ class Signature
   def self.clean params
     params = params.dup
     params.delete 'controller'
+    params.delete :controller
     params.delete 'action'
+    params.delete :action
     params
   end
   
@@ -64,7 +66,7 @@ class Signature
   # Generate a signature for the given params.
   #
   def self.generate_signature from_string, secret
-    Digest::MD6.hexdigest(from_string + secret)
+    Digest::MD5.hexdigest(from_string + secret)
   end
   
   def to_s
