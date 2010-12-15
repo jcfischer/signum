@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'signum'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.authors = ['Florian Hanke', 'Jens-Christian Fischer']
   s.email = 'jens-christian@invisible.ch'
   s.homepage = 'http://github.com/jcfischer/signum'

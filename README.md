@@ -13,5 +13,11 @@ Installation
 Usage
 -----
 
+    Signum.signature_for :value => { "param1" => "hello", "param2" => "world"},
+                         :secret => "aLongAndDifficultSecretString"
+
+internally, this calls the Signature class directly. You could therefore also
+use:
+
     Signum::Signature.for "secret", "param1" => "hello", "param2" => "world"
     => a3562b14ae3b14cc6db2aa01840273f4
