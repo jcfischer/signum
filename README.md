@@ -14,10 +14,22 @@ Usage
 -----
 
     Signum.signature_for :value => { "param1" => "hello", "param2" => "world"},
-                         :secret => "aLongAndDifficultSecretString"
+                         :secret => "aLongAndDifficultSecretString",
+                         :method => :sha2
+
+The :value parameter is a hash of parameters to be signed. It is sorted and normalized
+before the hashing is done. Also the parameters +controller+ and +action+ are removed
+in order to make it possible to directly pass the parameters of a rails request.
+
+The :method parameter is either :md5 (default) or :sha2
 
 internally, this calls the Signature class directly. You could therefore also
 use:
 
-    Signum::Signature.for "secret", "param1" => "hello", "param2" => "world"
+    Signum::Signature.for "secret", :sha2, "param1" => "hello", "param2" => "world"
     => a3562b14ae3b14cc6db2aa01840273f4
+
+Version history
+---------------
+
+0.0.4 - added SHA2 digest

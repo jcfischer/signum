@@ -19,13 +19,13 @@ describe Signum::Signature do
   
   describe "Signum::Signature.for" do
     it "should generate the right signature" do
-      expected = Signum::Signature.generate_signature 'amount:a,api_key:b,merchant_id:c', 'secret'
+      expected = Signum::Signature.generate_signature 'amount:a,api_key:b,merchant_id:c', 'secret', :md5
       actual = Signum::Signature.for 'secret', :merchant_id => 'c', :api_key => 'b', :amount => 'a'
       
       actual.signature.should == expected
     end
     it "should generate the right signature even if there is action & controller" do
-      expected = Signum::Signature.generate_signature 'amount:a,api_key:b,merchant_id:c', 'secret'
+      expected = Signum::Signature.generate_signature 'amount:a,api_key:b,merchant_id:c', 'secret', :md5
       actual = Signum::Signature.for 'secret', :merchant_id => 'c', :api_key => 'b', :amount => 'a', :controller => 'some/controller', :action => 'some_action'
       
       actual.signature.should == expected
@@ -57,8 +57,12 @@ describe Signum::Signature do
   end
   
   describe "Signum::Signature.generate_signature" do
-    it "should generate a correct signature" do
-      Signum::Signature.generate_signature('firstsecond', 'third').should == '272bfa314ea293c357dd9f45ba979a16'
+    it "should generate a correct md5 signature" do
+      Signum::Signature.generate_signature('firstsecond', 'third', :md5).should == '272bfa314ea293c357dd9f45ba979a16'
+    end
+
+    it "should generate a correct sha2 signature" do
+      Signum::Signature.generate_signature('firstsecond', 'third', :sha2).should == 'e3d4c0477520a72cc8b8964a863330c8558c8e436b58386829bec0f9f2723241'
     end
   end
   
